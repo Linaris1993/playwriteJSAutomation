@@ -26,7 +26,7 @@ await expect(page.locator("[style*='block']")).toContainText('Incorrect');
 //type - fill
 await userName.fill(""); //clear the field
 await userName.fill("rahulshettyacademy")
-await userName.click();
+await signIn.click();
 condole.log(await cardTitles.first().textContent()); //first or last one only
 condole.log(await cardTitles.nth(1).textContent()); //second
 const allTitles = await cardTitles.allTextContents();
@@ -69,5 +69,6 @@ test('Child Windows Handling', async ({browser}) => {
    console.log(domain);
    await page.locator("#userName").type(domain);
    await page.pause();
+ 
 });
 
