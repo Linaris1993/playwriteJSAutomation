@@ -14,7 +14,9 @@ const config = {
 
   use: {
     browserName: 'chromium',
-
+    screenshot: 'on',
+    trace: 'retain-on-failure', //gonna show trace.zip only for failed tests
+    headless: false
   },
 
 };
