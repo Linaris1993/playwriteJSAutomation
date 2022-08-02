@@ -12,16 +12,16 @@ test('Register new user', async ({page}) => {
         await expect(registerPage.locator(".login-title")).toContainText("Register");
         await registerPage.locator("#firstName").type("Lady");
         await registerPage.locator("#userEmail").type("testing@email.com");
-        await registerPage.locator(".custom-select").nth(2).click();
+        await registerPage.selectOption(".custom-select").nth(2).click();
         await registerPage.locator(".userPassword").type("password");
         await registerPage.locator("#lastName").type("Bug");
         await registerPage.locator("userMobile").type("13478907654");
-        await registerBtn.locator("input[value='Female']").click();
+        await registerPage.locator("input[value='Female']").click();
         await registerPage.locator(".confirmPassword").type("password");
 });
 
 test('Client App E2E', async ({page}) => {
-    const email = "nshika@gmail.com";
+    const email = "anshika@gmail.com";
     const productName = 'Zara Coat 4';
     const products = page.locator(".card-body");
     await page.goto("https://rahulshettyacademy.com/client");
