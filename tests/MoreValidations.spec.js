@@ -20,3 +20,22 @@ await framesPage.locator("li a[href*='lifetime-access]:visible").click(); //gonn
 const textCheck = await framesPage.locator(".text h2").textContent();
 textCheck.split(" ")[1]; //gonna show 2nd word
 });
+
+test("Screenshot and Visual comparision", async({page}) => {
+
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.locator("#displayed-text")).toBeVisible();
+    await page.screenshot({path: 'screenshot.png'}); //screenshot of all page
+    await page.locator("hide-textbox").click();
+    await page.locator("#displayed-text").screenshot({path: 'partialScreenshot.png'}); //screenshot of that el on page
+    await expect(page.locator("#displayed-text")).toBeHidden();
+});
+
+//screeshot -store -> screenshot -> 
+test('visual test', async({page}) => {
+
+    await page.goto("https://flightaware.com/");
+    expect(await page.screenshot()).toMatchSnapshot('landing.png');
+//on first run its gonna fail (will take first screenshot (landing.png)) and will compare screeshots next run
+
+});

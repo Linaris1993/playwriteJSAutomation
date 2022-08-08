@@ -2,6 +2,7 @@ const { test, expect, request } = require('@playwright/test');
 const {APIUtils} = require('./utils/APIUtils');
 const loginPayLoad = {userEmail: "anshika@gmail.com", userPassword: "Iamking@000"};
 const orderPayLoad = {country: "India", productOrderedId: "6262e95ae26b7e1a10e89bf0"};
+const fakePayLoadOrders = {data: [], message: "No Orders"};
 
 let responce;
 
@@ -19,19 +20,21 @@ test('Place the order', async ({page}) => {
     }, responce.token );
    
     await page.goto("https://rahulshettyacademy.com/client");
-     await page.locator("button[routerlink*='myorder']").click();
-     await page.locator("tbody").waitFor();
-    const rows = await page.locator("tbody tr")
 
-    for (let i = 0; i < await rows.count(); i++) {
-       const rawOrderId = await rows.nth(i).locator("th").textContent();
-       if (responce.orderId.includes(rawOrderId)) {
-        await rows.nth(i).locator("button").first().click();
-        break;
-       }
+    await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/620c7bf148767f1f1215d2ca", 
+    async route => {
+        const responce = await page.request.fetch(route.request());
+        let body = fakePayLoadOrders;
+        route.fulfill(
+            {
+                response, 
+                body,
+            }
+        )
+        //intercepting responce = API responce -> {playwrite fake responce} -> browser -> render data on frontend 
     }
-    
-    const orderIdDetails = await page.locator(".col-text").textContent();
-    await page.pause();
-    expect(responce.orderId.includes(orderIdDetails)).toBeTruthy();
+    )
+     await page.locator("button[routerlink*='myorder']").click();
+     await page.pause();
+     console.log(await page.locator(".mt-4").textContent());
 });

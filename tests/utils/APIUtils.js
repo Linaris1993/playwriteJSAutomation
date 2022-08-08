@@ -9,15 +9,18 @@ class APIUtils {
     {
         data: this.loginPayLoad
     })
-    const loginResponceJson = await loginResponce.json();
-    const token = loginResponceJson.token();
-    return token;
+        // 200, 201
+    expect(loginResponce.ok()).toBeTtuthy();
 
+    const loginResponceJson = await loginResponce.json();
+    const token = loginResponceJson;
+    console.log(token);
+    return token;
     }
 
     async createOrder(orderPayLoad) {
-        const responce = {};
-       responce.token = await this.getToken();
+        let responce = {};
+        responce.token = await this.getToken();
         const orderResponce = await apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
     {
         data : orderPayLoad, 
@@ -25,11 +28,11 @@ class APIUtils {
             'Authorization' : responce.token,
             'Content-Type' : 'application/json'
         },
-
     })
 
     const orderResponceJson = await orderResponce.json
-   const orderId = orderResponceJson.orders[0];
+    console.log(orderResponceJson);
+    const orderId = orderResponceJson.orders[0];
     responce.orderId = orderId;
     return responce;
 }

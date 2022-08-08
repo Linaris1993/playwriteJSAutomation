@@ -26,7 +26,7 @@ test('Client App E2E', async ({page}) => {
     const products = page.locator(".card-body");
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill(email);
-    await page.locator("#userPassword").type("password");
+    await page.locator("#userPassword").type("Iamking@000");
     await page.locator("[value='Login']").click();
     await page.waitForLoadState('networkidle');// wait until all call are suscefully made
     const titles = await page.locator(".card-body b").allTextContents();
@@ -69,7 +69,7 @@ test('Client App E2E', async ({page}) => {
        const rawOrderId = await rows.nth(i).locator("th").textContent();
        if (orderId.includes(rawOrderId)) {
         await rows.nth(i).locator("button").first().click();
-        break;
+        break; 
        }
     }
     const orderIdDetails = await page.locator(".col-text").textContent();

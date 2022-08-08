@@ -3,9 +3,14 @@ const { test, expect } = require('@playwright/test');
 test('Browser Context PLaywrite test', async ({browser}) => {
 
 const page = await context.newPage();
+//page.route('**/*.css', route => route.abort()); //gonna block all css calls
+//page.route('**/*.{jpg, png, jpeg}', route => route.abort()) //will not load any images on UI
 const userName = page.locator('#username');
 const signIn = page.locator("#signInBtn");
 const cardTitles = page.locator(".card-body a")
+
+page.on('request', request => console.log(request.url())); //gonna print url for every request
+page.on('responce', responce => console.log(responce.url(), responce.status())); //gonna print all responce and status calls
 
 await page.goto("https://rahulshettyacademy.com/loginpagePractise");
 console.log(await page.title());
