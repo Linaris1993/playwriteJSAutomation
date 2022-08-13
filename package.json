@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playrite test test/WebAPIPart1.spec.js --headed"
+    "test": "npx playrite test test/WebAPIPart1.spec.js --headed",
+    "regression": "npx playwrite test", //-> sript to trigger regression test
+    "webTests": "npx playwrite test --grep @Web", // -> sctipt tp trigger test with @Web tag
+    "SafariNewConfig": "npx playwrite test --config playewrite.config.js --safari" //-> will trigger test with configs specified in config file
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.24.1"
+    "@playwright/test": "^1.25.0",
+    "allure-playwright": "^2.0.0-beta.19"
   }
 }
