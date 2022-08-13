@@ -1,15 +1,15 @@
 const {test, expect} = require('@playwright/test');
+test.describe({mode:'parallel'});
+//test.describe({mode:'serial'}); //for a case where test 2 dependent on test 1 result
 
-test("Popup validations", async ({page}) => {
-
+test("@Web Popup validations", async ({page}) => { //@web tag; when running test - add to the commnd line  --grep @web
 await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
-// await page.goto("https://google.com");
-// await page.goBack(); //navigation 
-// await page.goForward(); //navigation 
+
 await expect(page.locator("#displayed-text")).toBeVisible();
 await page.locator("hide-textbox").click();
 await expect(page.locator("#displayed-text")).toBeHidden();
 await page.pause();
+
 page.on('dialog', dialog => dialog.accept()); //pop up => (dismiss is to cancell, accept = ok)
 await page.locator("#confirmbtn").click();
 
@@ -20,6 +20,10 @@ await framesPage.locator("li a[href*='lifetime-access]:visible").click(); //gonn
 const textCheck = await framesPage.locator(".text h2").textContent();
 textCheck.split(" ")[1]; //gonna show 2nd word
 });
+
+// await page.goto("https://google.com");
+// await page.goBack(); //navigation 
+// await page.goForward(); //navigation 
 
 test("Screenshot and Visual comparision", async({page}) => {
 

@@ -27,7 +27,7 @@ for (const data of dataSet) {
 //         await registerPage.locator(".confirmPassword").type("password");
 // });
 
-test(`Client App E2E for ${data.productName}`, async ({page}) => {
+test(`Client App E2E for ${data.productName}`, async ({page}) => { //test.skip = will skip that test
     const poManager = new POManager(page);
     const products = page.locator(".card-body");
     const loginPage = poManager.getLoginPage();
